@@ -1,0 +1,9 @@
+# Agent-generated output directories
+generations/
+
+# Log files
+logs/
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,819 @@
+<project_specification>
+  <project_name>NotebookAI - AI-Powered Research Assistant</project_name>
+
+  <overview>
+    Build a fully functional clone of Google's NotebookLM, an AI-powered research assistant that helps users
+    analyze, organize, and transform their documents into various output formats. The application should allow
+    users to upload multiple source types (PDFs, documents, URLs, audio, video), ask questions grounded in
+    their sources with citations, and generate various outputs including Audio Overviews (podcast-style
+    conversations), mind maps, summaries, study guides, and flashcards. The UI should provide an intuitive
+    notebook-based interface with a focus on source management, AI-powered Q&A, and content generation.
+  </overview>
+
+  <technology_stack>
+    <api_key>
+        You can use an API key located at /tmp/api-key for testing. You will not be allowed to read this file, but you can reference it in code.
+    </api_key>
+    <frontend>
+      <framework>React with Vite</framework>
+      <styling>Tailwind CSS (via CDN)</styling>
+      <state_management>React hooks and context</state_management>
+      <routing>React Router for navigation</routing>
+      <markdown>React Markdown for content rendering</markdown>
+      <code_highlighting>Syntax highlighting for code blocks</code_highlighting>
+      <audio>Web Audio API for audio playback</audio>
+      <visualization>D3.js or React Flow for mind maps</visualization>
+      <port>Only launch on port {frontend_port}</port>
+    </frontend>
+    <backend>
+      <runtime>Node.js with Express</runtime>
+      <database>SQLite with better-sqlite3</database>
+      <api_integration>Claude API for AI capabilities</api_integration>
+      <streaming>Server-Sent Events for streaming responses</streaming>
+      <file_processing>pdf-parse for PDFs, cheerio for URLs</file_processing>
+      <audio_generation>Text-to-speech API integration</audio_generation>
+    </backend>
+    <communication>
+      <api>RESTful endpoints</api>
+      <streaming>SSE for real-time content generation</streaming>
+      <claude_api>Integration with Claude API using Anthropic SDK</claude_api>
+    </communication>
+  </technology_stack>
+
+  <prerequisites>
+    <environment_setup>
+      - Repository includes .env with VITE_ANTHROPIC_API_KEY configured
+      - Frontend dependencies pre-installed via pnpm
+      - Backend code goes in /server directory
+      - Install backend dependencies as needed
+    </environment_setup>
+  </prerequisites>
+
+  <core_features>
+    <notebook_management>
+      - Create, rename, and delete notebooks
+      - Notebook dashboard with recent notebooks and quick access
+      - Notebook search and filtering
+      - Notebook templates for common use cases
+      - Notebook sharing with viewer/editor permissions
+      - Public notebook publishing
+      - Notebook duplication
+      - Notebook archiving
+      - Usage analytics per notebook
+    </notebook_management>
+
+    <source_management>
+      - Upload multiple source types:
+        - PDF documents (up to 200MB, 500K words max)
+        - Google Docs integration (OAuth)
+        - Website URLs (automatic text extraction)
+        - YouTube video links (transcript extraction)
+        - Audio files (transcription)
+        - Video files (transcription)
+        - Images with text (OCR support)
+        - Plain text and Markdown files
+        - Microsoft Word documents
+      - Source preview and reading view
+      - Source highlighting and annotations
+      - Source organization with tags
+      - Source search within notebook
+      - Source citation tracking
+      - Bulk source upload
+      - Source processing status indicators
+      - Source word count and metadata display
+      - Delete and replace sources
+      - Up to 50 sources per notebook (free tier)
+    </source_management>
+
+    <ai_chat_interface>
+      - Natural language Q&A grounded in sources
+      - Citation links in every response
+      - Click-to-verify citation references
+      - Streaming responses with typing indicator
+      - Suggested questions based on sources
+      - Source-specific filtering (ask about specific documents)
+      - Conversation history within notebook
+      - Clear chat and start fresh option
+      - Copy response to clipboard
+      - Save important responses as notes
+      - Multi-turn contextual conversations
+    </ai_chat_interface>
+
+    <audio_overview>
+      - Generate podcast-style audio conversations
+      - Two AI hosts discussing your sources
+      - Multiple audio formats:
+        - Deep Dive (10-15 minutes comprehensive)
+        - Brief Summary (90 seconds overview)
+        - Debate Format (multiple perspectives)
+        - Critique Format (analytical review)
+        - Interview Style (Q&A format)
+      - Customize audio length and style
+      - Audio player with playback controls
+      - Transcript display alongside audio
+      - Download audio as MP3
+      - Share audio overview link
+      - Audio generation progress indicator
+      - Host voice customization options
+    </audio_overview>
+
+    <visual_outputs>
+      - Mind Map generation:
+        - Interactive node-based visualization
+        - Explore connections between concepts
+        - Zoom and pan navigation
+        - Export as image or PDF
+        - Edit and customize nodes
+      - Infographics:
+        - Landscape, portrait, square formats
+        - Customizable color schemes
+        - Style guidance (professional, casual, academic)
+        - Download in multiple formats
+      - Slide Decks:
+        - Auto-generated presentation slides
+        - TED-style presenter format
+        - Detailed standalone slides
+        - Export to PDF or images
+        - Slide notes and talking points
+      - Video Overviews:
+        - 1-2 minute brief videos
+        - 6-10 minute detailed explainers
+        - Visual summaries with key points
+    </visual_outputs>
+
+    <text_outputs>
+      - Summary generation:
+        - Executive briefing
+        - Bullet point summary
+        - Timeline format
+        - Detailed report (2,000-3,000 words)
+      - Study Materials:
+        - Study guides
+        - Teaching guides
+        - Student handbooks
+        - Key concepts extraction
+      - FAQs:
+        - Auto-generated Q&A pairs
+        - Customizable question count
+        - Export as document
+      - Flashcards:
+        - Auto-generated flashcard sets
+        - Spaced repetition support
+        - Multiple choice quizzes
+        - Difficulty level customization
+        - Export to Anki format
+      - Custom Reports:
+        - Critiques and analysis
+        - Comparison documents
+        - Debate reports (pros/cons)
+        - Action item extraction
+    </text_outputs>
+
+    <notes_workspace>
+      - Create and edit notes within notebook
+      - Link notes to specific sources
+      - Rich text formatting
+      - Note organization with folders
+      - Pin important notes
+      - Search across all notes
+      - Convert chat responses to notes
+      - Export notes to various formats
+    </notes_workspace>
+
+    <research_tools>
+      - Fast Research: Quick 10-source search
+      - Deep Research: Comprehensive source gathering
+      - Source comparison tool
+      - Key themes extraction
+      - Entity recognition (people, places, dates)
+      - Quote extraction with citations
+      - Fact verification against sources
+      - Contradiction detection across sources
+    </research_tools>
+
+    <collaboration>
+      - Share notebooks with specific users
+      - Viewer and editor permission levels
+      - Selective access (full sources vs chat-only)
+      - Public notebook sharing with link
+      - Team workspace management
+      - Activity log for shared notebooks
+      - Comments and annotations
+      - Real-time collaboration indicators
+    </collaboration>
+
+    <settings_preferences>
+      - Theme selection (Light, Dark, Auto)
+      - Language preferences for outputs
+      - Default audio format preferences
+      - Citation style preferences
+      - Accessibility options
+      - Notification settings
+      - Data export options
+      - Account management
+      - API key configuration
+    </settings_preferences>
+
+    <onboarding>
+      - Welcome screen with feature overview
+      - Sample notebook with example sources
+      - Guided tour of key features
+      - Quick start templates
+      - Tips and best practices
+      - Help center integration
+    </onboarding>
+  </core_features>
+
+  <database_schema>
+    <tables>
+      <users>
+        - id, email, name, avatar_url
+        - created_at, last_login
+        - preferences (JSON: theme, language, defaults)
+        - subscription_tier (free, plus, enterprise)
+        - usage_limits (JSON: notebooks, sources, queries)
+      </users>
+
+      <notebooks>
+        - id, user_id, title, description
+        - cover_image_url, color_theme
+        - created_at, updated_at, last_accessed_at
+        - is_archived, is_public
+        - share_settings (JSON: visibility, permissions)
+        - source_count, note_count
+      </notebooks>
+
+      <sources>
+        - id, notebook_id, type (pdf/url/youtube/audio/video/image/doc)
+        - title, original_filename, file_path
+        - content_text, content_summary
+        - word_count, page_count
+        - metadata (JSON: author, date, url, duration)
+        - processing_status (pending/processing/completed/failed)
+        - created_at, updated_at
+        - is_active
+      </sources>
+
+      <source_chunks>
+        - id, source_id
+        - chunk_index, content
+        - embedding_vector (for semantic search)
+        - start_position, end_position
+        - page_number (for PDFs)
+      </source_chunks>
+
+      <chat_messages>
+        - id, notebook_id, user_id
+        - role (user/assistant)
+        - content, created_at
+        - citations (JSON: array of source references)
+        - source_filters (JSON: specific sources used)
+        - is_saved_as_note
+      </chat_messages>
+
+      <notes>
+        - id, notebook_id, user_id
+        - title, content
+        - linked_sources (JSON: source_ids)
+        - linked_citations (JSON: citation references)
+        - folder_id, position
+        - is_pinned
+        - created_at, updated_at
+      </notes>
+
+      <note_folders>
+        - id, notebook_id, name
+        - parent_folder_id, position
+        - created_at
+      </note_folders>
+
+      <generated_outputs>
+        - id, notebook_id, user_id
+        - type (audio/mindmap/slides/infographic/video/summary/flashcards)
+        - title, content, file_path
+        - settings (JSON: format, style, length options)
+        - status (pending/generating/completed/failed)
+        - created_at, expires_at
+        - is_public, share_token
+      </generated_outputs>
+
+      <flashcard_sets>
+        - id, output_id, notebook_id
+        - title, description
+        - card_count, difficulty_level
+        - created_at
+      </flashcard_sets>
+
+      <flashcards>
+        - id, flashcard_set_id
+        - front_content, back_content
+        - source_citation
+        - difficulty, times_reviewed
+        - next_review_date
+      </flashcards>
+
+      <notebook_shares>
+        - id, notebook_id, shared_with_user_id
+        - permission_level (viewer/editor)
+        - access_type (full/chat_only)
+        - shared_by_user_id
+        - created_at, expires_at
+      </notebook_shares>
+
+      <usage_tracking>
+        - id, user_id, notebook_id
+        - action_type (query/audio_gen/output_gen)
+        - tokens_used, created_at
+        - model_used
+      </usage_tracking>
+
+      <annotations>
+        - id, source_id, user_id
+        - highlight_text, note_content
+        - position_data (JSON: page, coordinates)
+        - color, created_at
+      </annotations>
+    </tables>
+  </database_schema>
+
+  <api_endpoints_summary>
+    <authentication>
+      - POST /api/auth/login
+      - POST /api/auth/logout
+      - GET /api/auth/me
+      - PUT /api/auth/profile
+      - POST /api/auth/google (OAuth)
+    </authentication>
+
+    <notebooks>
+      - GET /api/notebooks
+      - POST /api/notebooks
+      - GET /api/notebooks/:id
+      - PUT /api/notebooks/:id
+      - DELETE /api/notebooks/:id
+      - POST /api/notebooks/:id/duplicate
+      - PUT /api/notebooks/:id/archive
+      - POST /api/notebooks/:id/share
+      - GET /api/notebooks/:id/activity
+    </notebooks>
+
+    <sources>
+      - GET /api/notebooks/:id/sources
+      - POST /api/notebooks/:id/sources
+      - POST /api/notebooks/:id/sources/bulk
+      - GET /api/sources/:id
+      - DELETE /api/sources/:id
+      - GET /api/sources/:id/content
+      - GET /api/sources/:id/preview
+      - POST /api/sources/url (URL extraction)
+      - POST /api/sources/youtube (YouTube transcript)
+      - GET /api/sources/:id/processing-status
+    </sources>
+
+    <chat>
+      - GET /api/notebooks/:id/chat/history
+      - POST /api/notebooks/:id/chat/message
+      - GET /api/notebooks/:id/chat/stream (SSE)
+      - POST /api/notebooks/:id/chat/suggested-questions
+      - DELETE /api/notebooks/:id/chat/history
+      - POST /api/chat/messages/:id/save-as-note
+    </chat>
+
+    <audio_overview>
+      - POST /api/notebooks/:id/audio/generate
+      - GET /api/notebooks/:id/audio
+      - GET /api/audio/:id
+      - GET /api/audio/:id/stream
+      - GET /api/audio/:id/transcript
+      - DELETE /api/audio/:id
+      - POST /api/audio/:id/share
+    </audio_overview>
+
+    <outputs>
+      - POST /api/notebooks/:id/outputs/mindmap
+      - POST /api/notebooks/:id/outputs/slides
+      - POST /api/notebooks/:id/outputs/infographic
+      - POST /api/notebooks/:id/outputs/summary
+      - POST /api/notebooks/:id/outputs/faq
+      - POST /api/notebooks/:id/outputs/flashcards
+      - POST /api/notebooks/:id/outputs/video
+      - GET /api/notebooks/:id/outputs
+      - GET /api/outputs/:id
+      - DELETE /api/outputs/:id
+      - POST /api/outputs/:id/share
+      - GET /api/outputs/:id/download
+    </outputs>
+
+    <notes>
+      - GET /api/notebooks/:id/notes
+      - POST /api/notebooks/:id/notes
+      - GET /api/notes/:id
+      - PUT /api/notes/:id
+      - DELETE /api/notes/:id
+      - PUT /api/notes/:id/pin
+      - POST /api/notebooks/:id/notes/folders
+      - PUT /api/notes/folders/:id
+      - DELETE /api/notes/folders/:id
+    </notes>
+
+    <flashcards>
+      - GET /api/notebooks/:id/flashcards
+      - GET /api/flashcard-sets/:id
+      - GET /api/flashcard-sets/:id/cards
+      - PUT /api/flashcards/:id/review
+      - POST /api/flashcard-sets/:id/export
+    </flashcards>
+
+    <annotations>
+      - GET /api/sources/:id/annotations
+      - POST /api/sources/:id/annotations
+      - PUT /api/annotations/:id
+      - DELETE /api/annotations/:id
+    </annotations>
+
+    <search>
+      - GET /api/notebooks/:id/search?q=query
+      - POST /api/notebooks/:id/semantic-search
+      - GET /api/search/notebooks?q=query
+    </search>
+
+    <sharing>
+      - POST /api/notebooks/:id/share
+      - GET /api/share/:token
+      - PUT /api/share/:token/permissions
+      - DELETE /api/share/:token
+      - GET /api/notebooks/:id/collaborators
+    </sharing>
+
+    <usage>
+      - GET /api/usage/daily
+      - GET /api/usage/monthly
+      - GET /api/usage/limits
+    </usage>
+
+    <settings>
+      - GET /api/settings
+      - PUT /api/settings
+    </settings>
+
+    <claude_api>
+      - POST /api/claude/chat (proxy to Claude API)
+      - POST /api/claude/chat/stream (streaming proxy)
+      - POST /api/claude/summarize
+      - POST /api/claude/generate-questions
+      - POST /api/claude/extract-entities
+    </claude_api>
+  </api_endpoints_summary>
+
+  <ui_layout>
+    <main_structure>
+      - Three-panel layout: sidebar (notebooks/sources), main (chat/content), right panel (outputs)
+      - Collapsible sidebar with resize handles
+      - Responsive breakpoints: mobile (single panel), tablet (two panel), desktop (three panel)
+      - Persistent header with notebook title and actions
+      - Bottom area for chat input
+    </main_structure>
+
+    <sidebar_left>
+      - Notebook selector dropdown
+      - "New Notebook" button (prominent)
+      - Sources panel:
+        - "Add Source" button with upload options
+        - Source list with type icons
+        - Source search/filter
+        - Processing status indicators
+      - Notes panel (collapsible):
+        - Note folders tree
+        - Note list
+        - Quick note creation
+      - Settings gear icon at bottom
+      - User profile at bottom
+    </sidebar_left>
+
+    <main_content_area>
+      - Tab navigation: Chat | Studio | Notes
+      - Chat Tab:
+        - Welcome message with suggested questions
+        - Chat message history
+        - Citation links with hover previews
+        - Message actions (copy, save as note)
+        - Chat input with source filter dropdown
+      - Studio Tab:
+        - Output generation cards (Audio, Mind Map, Slides, etc.)
+        - Generated outputs gallery
+        - Output preview and download
+      - Notes Tab:
+        - Rich text note editor
+        - Note organization view
+        - Source linking interface
+    </main_content_area>
+
+    <right_panel>
+      - Source viewer:
+        - Document preview/reader
+        - Annotation tools
+        - Highlight and note functionality
+      - Output viewer:
+        - Audio player with controls
+        - Mind map interactive view
+        - Slide deck viewer
+        - Infographic preview
+      - Citation panel:
+        - Full citation context
+        - Jump to source location
+    </right_panel>
+
+    <modals_overlays>
+      - Source upload modal with drag-and-drop
+      - URL/YouTube input modal
+      - Audio generation settings modal
+      - Output customization modals
+      - Share notebook modal
+      - Settings modal (tabbed interface)
+      - Flashcard review modal
+      - Export options modal
+    </modals_overlays>
+  </ui_layout>
+
+  <design_system>
+    <color_palette>
+      - Primary: Blue accent (#4285F4 Google-style)
+      - Secondary: Green (#34A853), Yellow (#FBBC05), Red (#EA4335)
+      - Background: White (light mode), Dark gray (#1A1A1A dark mode)
+      - Surface: Light gray (#F8F9FA light), Darker gray (#2D2D2D dark)
+      - Text: Near black (#202124 light), Off-white (#E8EAED dark)
+      - Borders: Light gray (#DADCE0 light), Dark gray (#5F6368 dark)
+      - Source type colors: PDF (red), URL (blue), YouTube (red), Audio (purple)
+    </color_palette>
+
+    <typography>
+      - Sans-serif: Google Sans, Roboto, system-ui
+      - Headings: font-medium to font-bold
+      - Body: font-normal, leading-relaxed
+      - Code: Roboto Mono, monospace
+      - Source titles: text-sm font-medium
+      - Chat messages: text-base, comfortable line-height
+    </typography>
+
+    <components>
+      <source_card>
+        - Type icon with color coding
+        - Title with truncation
+        - Word count / page count badge
+        - Processing status indicator
+        - Hover actions (view, delete)
+      </source_card>
+
+      <chat_message>
+        - User messages: Right-aligned with avatar
+        - Assistant messages: Left-aligned with citations
+        - Citation chips: Clickable with source reference
+        - Copy and save buttons on hover
+        - Streaming indicator animation
+      </chat_message>
+
+      <output_card>
+        - Output type icon and title
+        - Preview thumbnail
+        - Status badge (generating/ready)
+        - Action buttons (play, download, share)
+        - Timestamp
+      </output_card>
+
+      <audio_player>
+        - Play/pause button
+        - Progress bar with time display
+        - Speed control (0.5x - 2x)
+        - Volume control
+        - Download button
+        - Transcript toggle
+      </audio_player>
+
+      <buttons>
+        - Primary: Blue background, white text, rounded
+        - Secondary: Border style with hover fill
+        - Icon buttons: Circle with hover background
+        - Disabled state: Reduced opacity
+      </buttons>
+
+      <inputs>
+        - Rounded borders with focus ring
+        - Search inputs with icon prefix
+        - Textarea auto-resize for chat
+        - File drop zones with dashed border
+      </inputs>
+    </components>
+
+    <animations>
+      - Smooth transitions (150-300ms)
+      - Fade in for new content
+      - Slide in for panels
+      - Pulse animation for processing
+      - Progress bar for generation
+      - Skeleton loaders for content
+    </animations>
+  </design_system>
+
+  <key_interactions>
+    <source_upload_flow>
+      1. Click "Add Source" button
+      2. Select source type (upload, URL, YouTube)
+      3. Drag and drop or browse files
+      4. Processing indicator shows progress
+      5. Source appears in list when ready
+      6. Auto-generate suggested questions
+    </source_upload_flow>
+
+    <chat_flow>
+      1. User types question or selects suggested question
+      2. Optionally filter to specific sources
+      3. Click send or press Enter
+      4. Response streams with citations
+      5. Hover citation to see source preview
+      6. Click citation to open source in right panel
+      7. Save response as note if useful
+    </chat_flow>
+
+    <audio_generation_flow>
+      1. Go to Studio tab
+      2. Click "Audio Overview" card
+      3. Select format (deep dive, brief, debate)
+      4. Customize options (length, focus areas)
+      5. Click Generate
+      6. Progress bar shows generation status
+      7. Audio player appears when complete
+      8. Play, download, or share audio
+    </audio_generation_flow>
+
+    <mind_map_flow>
+      1. Click "Mind Map" in Studio
+      2. AI extracts key concepts from sources
+      3. Interactive visualization renders
+      4. Click nodes to expand/collapse
+      5. Drag to rearrange layout
+      6. Export as image or PDF
+    </mind_map_flow>
+
+    <collaboration_flow>
+      1. Click Share button on notebook
+      2. Enter email or generate share link
+      3. Set permission level (view/edit)
+      4. Choose access type (full/chat-only)
+      5. Collaborator receives invitation
+      6. Activity shows in notebook log
+    </collaboration_flow>
+  </key_interactions>
+
+  <implementation_steps>
+    <step number="1">
+      <title>Setup Project Foundation and Database</title>
+      <tasks>
+        - Initialize Express server with SQLite database
+        - Set up Claude API client with streaming support
+        - Create database schema with all tables
+        - Implement basic authentication
+        - Set up file upload handling with multer
+        - Create health check endpoint
+      </tasks>
+    </step>
+
+    <step number="2">
+      <title>Build Notebook and Source Management</title>
+      <tasks>
+        - Create notebook CRUD endpoints
+        - Implement source upload handling
+        - Add PDF text extraction
+        - Add URL content extraction
+        - Add YouTube transcript extraction
+        - Build source processing queue
+        - Create source chunking for embeddings
+      </tasks>
+    </step>
+
+    <step number="3">
+      <title>Implement AI Chat Interface</title>
+      <tasks>
+        - Build chat endpoint with streaming
+        - Implement RAG with source grounding
+        - Add citation generation and linking
+        - Create suggested questions feature
+        - Add source-specific filtering
+        - Build conversation history
+        - Implement save as note feature
+      </tasks>
+    </step>
+
+    <step number="4">
+      <title>Create Audio Overview System</title>
+      <tasks>
+        - Build audio generation endpoint
+        - Create podcast script generation with Claude
+        - Integrate text-to-speech API
+        - Build audio player component
+        - Add transcript sync with audio
+        - Implement audio download and sharing
+        - Create multiple audio format options
+      </tasks>
+    </step>
+
+    <step number="5">
+      <title>Build Visual Output Generation</title>
+      <tasks>
+        - Create mind map generation endpoint
+        - Build interactive mind map component
+        - Implement slide deck generation
+        - Add infographic generation
+        - Build output preview and download
+        - Create video overview generation
+      </tasks>
+    </step>
+
+    <step number="6">
+      <title>Implement Text Outputs and Study Tools</title>
+      <tasks>
+        - Build summary generation (multiple formats)
+        - Create FAQ generation
+        - Implement flashcard generation
+        - Build flashcard review interface
+        - Add spaced repetition logic
+        - Create export functionality
+      </tasks>
+    </step>
+
+    <step number="7">
+      <title>Build Notes System</title>
+      <tasks>
+        - Create notes CRUD endpoints
+        - Build rich text note editor
+        - Implement note folder organization
+        - Add source linking to notes
+        - Create note search
+        - Build note export
+      </tasks>
+    </step>
+
+    <step number="8">
+      <title>Implement Sharing and Collaboration</title>
+      <tasks>
+        - Build notebook sharing system
+        - Create permission management
+        - Implement public notebook view
+        - Add collaborator management
+        - Create activity logging
+        - Build share link generation
+      </tasks>
+    </step>
+
+    <step number="9">
+      <title>Polish and Optimization</title>
+      <tasks>
+        - Optimize for mobile responsiveness
+        - Add comprehensive error handling
+        - Implement usage tracking and limits
+        - Create onboarding flow
+        - Add accessibility features
+        - Performance optimization
+        - Add dark mode support
+      </tasks>
+    </step>
+  </implementation_steps>
+
+  <success_criteria>
+    <functionality>
+      - Source upload and processing works reliably
+      - AI chat responses are grounded with proper citations
+      - Audio overview generation produces quality podcasts
+      - Mind maps and visual outputs render correctly
+      - Flashcards and study materials are useful
+      - Sharing and collaboration features work
+      - All CRUD operations functional
+    </functionality>
+
+    <user_experience>
+      - Interface is intuitive and easy to navigate
+      - Source management is smooth and clear
+      - Chat interactions feel natural and helpful
+      - Output generation progress is clear
+      - Citations are easy to verify
+      - Responsive on all device sizes
+    </user_experience>
+
+    <technical_quality>
+      - Clean, maintainable code structure
+      - Proper error handling throughout
+      - Secure file handling and storage
+      - Efficient source processing
+      - Optimized database queries
+      - Reliable streaming implementation
+    </technical_quality>
+
+    <design_polish>
+      - Modern, clean visual design
+      - Consistent component styling
+      - Smooth animations and transitions
+      - Excellent typography and spacing
+      - Professional appearance
+      - Dark mode fully implemented
+    </design_polish>
+  </success_criteria>
+</project_specification>
