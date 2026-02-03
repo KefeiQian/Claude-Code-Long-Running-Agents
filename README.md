@@ -1,5 +1,8 @@
 # Autonomous Coding Agent Demo
 
+This was originates from Claude-QuickStarts and made some updates:
+https://github.com/anthropics/claude-quickstarts/tree/main/autonomous-coding
+
 A minimal harness demonstrating long-running autonomous coding with the Claude Agent SDK. This demo implements a two-agent pattern (initializer + coding agent) that can build complete applications over multiple sessions.
 
 ## Prerequisites
@@ -27,6 +30,12 @@ uv run python -c "import claude_agent_sdk; print('SDK installed')"
 ```bash
 export ANTHROPIC_API_KEY='your-api-key-here'
 ```
+
+> [!WARNING]
+> **Cost Warning:** This demo runs for a long time and makes many API calls. Using a standard API key can result in significant costs.
+>
+> **Recommended:** Use the `claude` CLI with a subscription. This provides an efficient and cost-effective way to run long sessions like this one.
+
 
 ## Quick Start
 
